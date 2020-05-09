@@ -1,0 +1,297 @@
+
+
+
+
+
+
+
+<html>
+	
+	<head>
+		
+		<script src="moment.min.js"></script>
+
+		<script>
+			
+			function loadScheduler(config, data) {
+
+				// config.schedule_id = "1234-uuid-5678"
+				// load schedule
+				//     timeblocks
+				//     interval
+				//	   style
+				var config = {
+					"interval": 10,
+				};
+
+
+				var timeblocks = [
+					'0800',
+					'0810',
+					'0820',
+					'0830',
+					'0840',
+					'0850',
+					'0900',
+					'0910',
+					'0920',
+					'0930',
+					'0940',
+					'0950',
+					'1000',
+					'1010',
+					'1020',
+					'1030',
+					'1040',
+					'1050',
+					'1100',
+				];
+
+
+				var schedule = document.createElement("div");
+
+				schedule.id = "schedule";
+				schedule.style.display = "grid";
+				schedule.style.gridTemplateColumns = "50px 1fr";
+				schedule.style.gridTemplateRows = "repeat("+timeblocks.length+", 40px)";
+
+				Object.keys(data).forEach(function(resource_id) {
+					renderResourceBarOntoSchedule(resource_id, schedule);
+				});
+
+				renderTimeBlocksOntoSchedule(timeblocks, schedule, data);
+
+				Object.keys(data).forEach(function(resource_id) {
+					renderEventsOntoSchedule(resource_id, data[resource_id].events, schedule, config);
+				});
+				
+
+				document.body.append(schedule);
+
+			}
+
+			function renderResourceBarOntoSchedule(resource_id, schedule) {
+				var resource_bar = document.createElement("div");
+
+				resource_bar.id = "resource_bar";
+				resource_bar.style.gridTemplateAreas = " . resource"+resource_id;
+				resource_bar.innerHTML = resource_id;
+				document.body.append(resource_bar);
+			}
+
+			function renderEventsOntoSchedule(resource_id, events, schedule, config) {
+				Object.keys(events).forEach( function(event_id) {
+					var eventBlock = document.createElement("a");
+					eventBlock.href = "#event-" + event_id;
+					eventBlock.id = "#event-" + event_id;
+					eventBlock.classList.add("event");
+					eventBlock.classList.add("event-type-" + events[event_id].type);
+
+					var eventTitle = document.createElement("span");
+					eventTitle.classList.add("title");
+					eventTitle.innerHTML = events[event_id].data.title;
+					eventBlock.append(eventTitle);
+
+					// console.log(events[event_id]);
+
+					var start = moment(events[event_id].data.start, "HH;mm").format("HHmm");
+					var end = moment(events[event_id].data.end, "HH;mm").subtract(config.interval, "minutes").format("HHmm");
+
+					eventBlock.style.gridArea = "ga_"+start+"-"+resource_id+" / ga_"+start+"-"+resource_id+" / ga_"+end+"-"+resource_id;
+
+					schedule.append(eventBlock);
+				});
+			}
+
+
+			function renderTimeBlocksOntoSchedule(timeblocks, schedule, data) {
+
+				var gridTemplateAreas = [];
+
+				timeblocks.forEach(function(time) {
+					
+					gridTemplateAreaRow = '" tb_'+time;
+					Object.keys(data).forEach(function(resource_id, index) {
+
+						var timeElement = document.createElement("a");
+						timeElement.href = "#" + time;
+						timeElement.style.gridArea = "tb_" + time;
+						timeElement.innerHTML = time;
+						schedule.append(timeElement);
+
+						var timeblockElement = document.createElement("a");
+						timeblockElement.classList.add("timeblock");
+						timeblockElement.href = "#" + time + "-" + resource_id;
+						timeblockElement.style.gridArea = "ga_" + time + "-" + resource_id;
+
+						schedule.append(timeblockElement);
+						gridTemplateAreaRow += ' ga_' + time + '-' + resource_id;
+					});
+
+					gridTemplateAreaRow += '"';
+
+					gridTemplateAreas.push(gridTemplateAreaRow);
+
+				});
+
+				gridTemplateAreas.forEach(function(templateArea) {
+					schedule.style.gridTemplateAreas += templateArea;
+				});
+
+			}
+
+
+			window.onload = function() {
+
+
+				console.log(moment().format());
+
+
+
+
+
+				loadScheduler({
+
+				},
+				{
+					"ae45f": {
+						"events": {
+							"1234": {
+								"type": "2",
+								"data": {
+									"title": "An Event",
+									"start": "09:00",
+									"end": "10:10",
+								},
+							},
+							"4321": {
+								"type": "1",
+								"data": {
+									"title": "Another Event",
+									"start": "08:30",
+									"end": "08:50",
+								},
+							},
+							// "5678": {
+							// 	"type": "2",
+							// 	"data": {
+							// 		"title": "And Another",
+							// 		"start": "08:10",
+							// 		"end": "08:40",
+							// 	},
+							// }
+						}
+					}
+				});
+			}
+
+		</script>
+
+		<style type="text/css">					
+
+				#scheduler {
+					
+				}
+
+				.timeblock {
+					border-bottom: 1px solid #ccc;
+				}
+
+				.event {
+					padding: 1em 1.2em;
+					overflow: hidden;
+					min-width: 0;
+					position: relative;
+				}
+
+				.event-type-1 {
+					background-color: red;
+				}
+				.event-type-2 {
+					background-color: yellow;
+				}
+
+				.title {
+					font-size: 4em;
+				}
+
+				#resource_bar {
+				    display: grid;
+				    grid-template-columns: 1fr;
+				    grid-template-rows: 40px;
+				    background-color: brown;
+				    font-size: 14px;
+				    font-weight: 600;
+				    position: -webkit-sticky;
+				    position: sticky;
+				    top: 0;
+				    z-index: 1029;
+				}
+
+/*				#scheduler {
+					display: grid;
+					grid-template-columns: 0.4fr, 0.4fr;
+					grid-template-rows: repeat(7, 40px);
+					grid-template-areas: 
+						"ga_0800-ae45f ga_0800-dc43e"
+						"ga_0810-ae45f ga_0810-dc43e"
+						"ga_0820-ae45f ga_0820-dc43e"
+						"ga_0830-ae45f ga_0830-dc43e"
+						"ga_0840-ae45f ga_0840-dc43e"
+						"ga_0850-ae45f ga_0850-dc43e"
+						"ga_0900-ae45f ga_0900-dc43e";
+				}*/
+
+/*				#event-1 {
+					grid-area: ga_0810-ae45f / 1 / ga_0900-ae45f;
+					background-color: red;
+				}
+
+				#event-2 {
+					grid-area: ga_0830-dc43e / 2 / ga_0850-dc43e;
+					background-color: blue;
+				}*/
+
+/*				.timeblock {
+					border-bottom: 1px solid purple;
+					border-right: 1px solid purple;
+				}*/
+
+/*				#scheduler > ._tb-0800-ae45f {
+					grid-area: ga_0800-ae45f;
+				}
+
+				#scheduler > ._tb-0810-ae45f {
+					grid-area: ga_0810-ae45f;
+				}
+				
+				#scheduler > ._tb-0820-ae45f {
+					grid-area: ga_0820-ae45f;
+				}
+				
+				#scheduler > ._tb-0830-ae45f {
+					grid-area: ga_0830-ae45f;
+				}
+				
+				#scheduler > ._tb-0840-ae45f {
+					grid-area: ga_0840-ae45f;
+				}
+				
+				#scheduler > ._tb-0850-ae45f {
+					grid-area: ga_0850-ae45f;
+				}
+				
+				#scheduler > ._tb-0900-ae45f {
+					grid-area: ga_0900-ae45f;
+				}*/
+
+		</style>
+
+	</head>
+
+	<body>
+		
+		
+	</body>
+
+</html>
