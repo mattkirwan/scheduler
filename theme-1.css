@@ -1,0 +1,106 @@
+				body {
+					margin: 0;
+					padding: 0;
+				}
+
+				#scheduler {
+				}
+
+				.time {
+					margin-top: -0.6em;
+					font-size: 0.8em;
+					width: 50px;
+				}
+
+				.timeblock {
+					border-bottom: 1px solid #ccc;
+					border-right: 1px solid #ccc;
+					margin-top: -0.8em;
+				}
+
+				.event {
+					padding: 1em 1.2em;
+					overflow: hidden;
+					min-width: 0;
+					position: relative;
+				}
+
+				.event-type-1 {
+					background-color: red;
+				}
+				.event-type-2 {
+					background-color: yellow;
+				}
+
+				.title {
+					font-size: 1.2em;
+				}
+
+				#resource_bar {
+					min-width: 640px;
+				    background-color: brown;
+				    font-size: 14px;
+				    font-weight: 600;
+				    position: -webkit-sticky;
+				    position: sticky;
+				    top: 0;
+				    z-index: 1029;
+				    text-align: center;
+				}
+
+/*				#scheduler {
+					display: grid;
+					grid-template-columns: 0.4fr, 0.4fr;
+					grid-template-rows: repeat(7, 40px);
+					grid-template-areas: 
+						"ga_0800-ae45f ga_0800-dc43e"
+						"ga_0810-ae45f ga_0810-dc43e"
+						"ga_0820-ae45f ga_0820-dc43e"
+						"ga_0830-ae45f ga_0830-dc43e"
+						"ga_0840-ae45f ga_0840-dc43e"
+						"ga_0850-ae45f ga_0850-dc43e"
+						"ga_0900-ae45f ga_0900-dc43e";
+				}*/
+
+/*				#event-1 {
+					grid-area: ga_0810-ae45f / 1 / ga_0900-ae45f;
+					background-color: red;
+				}
+
+				#event-2 {
+					grid-area: ga_0830-dc43e / 2 / ga_0850-dc43e;
+					background-color: blue;
+				}*/
+
+/*				.timeblock {
+					border-bottom: 1px solid purple;
+					border-right: 1px solid purple;
+				}*/
+
+/*				#scheduler > ._tb-0800-ae45f {
+					grid-area: ga_0800-ae45f;
+				}
+
+				#scheduler > ._tb-0810-ae45f {
+					grid-area: ga_0810-ae45f;
+				}
+				
+				#scheduler > ._tb-0820-ae45f {
+					grid-area: ga_0820-ae45f;
+				}
+				
+				#scheduler > ._tb-0830-ae45f {
+					grid-area: ga_0830-ae45f;
+				}
+				
+				#scheduler > ._tb-0840-ae45f {
+					grid-area: ga_0840-ae45f;
+				}
+				
+				#scheduler > ._tb-0850-ae45f {
+					grid-area: ga_0850-ae45f;
+				}
+				
+				#scheduler > ._tb-0900-ae45f {
+					grid-area: ga_0900-ae45f;
+				}*/
