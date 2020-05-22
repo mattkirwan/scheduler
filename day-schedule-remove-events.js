@@ -28,7 +28,6 @@ var scheduler = (function() {
 		});
 		
 		document.body.append(SCHEDULER);
-		console.log("Initialised");
 	}
 
 	public.removeAllEvents = function() {
@@ -38,7 +37,10 @@ var scheduler = (function() {
 	}
 
 	public.removeEvent = function(id) {
-		document.querySelector('#event-' + id).remove();
+		var event = document.querySelector('#event-' + id);
+		if (event != null) {
+			event.remove();
+		}
 	}
 
 	public.addEvent = function(resource_id, event) {
