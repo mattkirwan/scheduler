@@ -6,25 +6,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		
 		<script src="moment.min.js"></script>
-		<script src="day-schedule-remove-events.js"></script>
+		<script src="scheduler.js"></script>
+
+		<!-- Some test event data -->
 		<script src="events.js"></script>
 
 		<link rel="stylesheet" type="text/css" href="theme-1.css" />
 
 		<script>
 			
-
-
 			window.onload = function() {
-
-				// var schedule = scheduler();
-
-
-				// schedule.init({
-				// 	"theme": "theme-1",
-				// 	"interval": 5,
-				// }, events);
-
 
 				var config = {
 					"theme": "theme-1",
@@ -33,6 +24,7 @@
 
 				scheduler.render(config, events);
 
+				// Tools for testing public functions
 				var remove_all_events = document.getElementById('remove_all_events');
 				remove_all_events.onclick = function() {
 					scheduler.removeAllEvents();
