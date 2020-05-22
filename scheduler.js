@@ -133,16 +133,30 @@ var scheduler = (function() {
 		eventTitle.innerHTML = event.data.title;
 		eventBlock.append(eventTitle);
 
-		var start = moment(event.data.start, "HH;mm").format("HHmm");
-		var end = moment(event.data.end, "HH;mm").subtract(5, "minutes").format("HHmm");
+		var start = event.data.start.replace(':', '');
+		var end = moment(event.data.end, "HH:mm").subtract(5, "minutes").format("HHmm");
 
 		eventBlock.style.gridArea = "ga_"+start+"-"+resource_id+" / ga_"+start+"-"+resource_id+" / ga_"+end+"-"+resource_id;
 
 		SCHEDULER.append(eventBlock);
 	}
 
+	const hours = Array(24).fill(0).map((x, y) => {
+		var h = x + y;
+		if (y < 10) {
+			h = '0'+h;
+		}
+		return h.toString();
+	});
+
+
 	return public;
 })();
+
+
+
+
+
 
 // This should be generated from init CONFIG
 var timeblocks = {
