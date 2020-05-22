@@ -19,7 +19,7 @@
 				}
 
 				.event {
-					padding: 1em 1.2em;
+					padding: 0.6em;
 					overflow: hidden;
 					min-width: 0;
 					position: relative;
@@ -33,7 +33,7 @@
 				}
 
 				.title {
-					font-size: 1.2em;
+					font-size: 1em;
 				}
 
 				#resource_bar {

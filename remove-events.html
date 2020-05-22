@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		
+		<script src="moment.min.js"></script>
+		<script src="day-schedule-remove-events.js"></script>
+		<script src="events.js"></script>
+
+		<link rel="stylesheet" type="text/css" href="theme-1.css" />
+
+		<script>
+			
+
+
+			window.onload = function() {
+
+				// var schedule = scheduler();
+
+
+				// schedule.init({
+				// 	"theme": "theme-1",
+				// 	"interval": 5,
+				// }, events);
+
+
+				var config = {
+					"theme": "theme-1",
+					"interval": 5,
+				};
+
+				scheduler.render(config, events);
+
+				var remove_all_events = document.getElementById('remove_all_events');
+				remove_all_events.onclick = function() {
+					scheduler.removeAllEvents();
+				}
+				var remove_event = document.getElementById('remove_event');
+				remove_event.onclick = function() {
+					scheduler.removeEvent(9876);
+				}
+				var add_event = document.getElementById('add_event');
+				add_event.onclick = function() {
+					scheduler.addEvent("ae45f", {
+						"id": 9751,
+						"type": "1",
+						"data": {
+							"title": "Some Other Event",
+							"start": "08:10",
+							"end": "08:25",
+						}
+					});
+				}
+
+			}
+
+		</script>
+
+	</head>
+
+	<body>
+		
+
+		<a href="#" id="remove_all_events">Remove All Events</a>
+		<a href="#" id="remove_event">Remove 6789</a>
+		<a href="#" id="add_event">Add Event</a>
+
+		<div id="scheduler"></div>
+
+	</body>
+
+</html>
