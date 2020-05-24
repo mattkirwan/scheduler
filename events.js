@@ -18,6 +18,12 @@ var events = {
 			},
 		},
 	},
+	"availabilities": [
+		{
+			"start": "08:10",
+			"end": "10:00",
+		},
+	],
 },
 "dc76d": {
 	"events": {
@@ -57,7 +63,13 @@ var events = {
 				"end": "11:40",
 			},
 		},
-	}
+	},
+	"availabilities": [
+		{
+			"start": "09:00",
+			"end": "10:30",
+		},
+	],
 },
 "ffa75h": {
 	"events": {

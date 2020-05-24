@@ -18,6 +18,10 @@
 					margin-top: -0.8em;
 				}
 
+				.unavailable {
+					background-color: #ccc;
+				}
+
 				.event {
 					padding: 0.6em;
 					overflow: hidden;
